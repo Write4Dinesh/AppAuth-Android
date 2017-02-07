@@ -12,7 +12,7 @@ android {
         // replace the below string with your own Google client ID. Make sure this is consistent
         // with the values used in idp_configs.xml
         manifestPlaceholders = [
-                'appAuthRedirectScheme': 'com.googleusercontent.apps.YOUR-ID'
+                'appAuthRedirectScheme': 'com.googleusercontent.apps.29840896047-i2oftbop6qv0d6c3ktr69ktp3f2h1lng'
         ]
     }
 

@@ -67,9 +67,7 @@
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="https"
-                  android:host="appauth.demo-app.io"
-                  android:path="/oauth2redirect"/>
+                <data android:scheme="https" android:host="com.googleusercontent.apps.29840896047-i2oftbop6qv0d6c3ktr69ktp3f2h1lng" android:path="/oauth2redirect"/>
             </intent-filter>
         </activity>
     </application>

@@ -12,7 +12,7 @@ android.defaultConfig.project.archivesBaseName = 'appauth'
 // Define a default value for building the tests. This is not used when building any dependent
 // libraries or apps.
 android.buildTypes.debug.manifestPlaceholders = [
-    'appAuthRedirectScheme': 'net.openid.appauth.test'
+    'appAuthRedirectScheme': 'com.googleusercontent.apps.29840896047-i2oftbop6qv0d6c3ktr69ktp3f2h1lng'
 ];
 
 dependencies {

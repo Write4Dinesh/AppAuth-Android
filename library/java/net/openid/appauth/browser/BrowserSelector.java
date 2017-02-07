@@ -96,7 +96,9 @@ public final class BrowserSelector {
                         PackageManager.GET_SIGNATURES);
 
                 if (hasWarmupService(pm, info.activityInfo.packageName)) {
-                    browsers.add(new BrowserDescriptor(packageInfo, true));
+                    if (!isSamsungBrowser(info.activityInfo.packageName)) {
+                        browsers.add(new BrowserDescriptor(packageInfo, true));
+                    }
                 }
 
                 browsers.add(new BrowserDescriptor(packageInfo, false));
@@ -106,6 +108,10 @@ public final class BrowserSelector {
         }
 
         return browsers;
+    }
+
+    private static boolean isSamsungBrowser(String packageName) {
+        return Browsers.SBrowser.PACKAGE_NAME.equals(packageName);
     }
 
     /**

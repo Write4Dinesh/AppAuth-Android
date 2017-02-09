@@ -138,12 +138,11 @@ public class MainActivity extends AppCompatActivity {
 
     //Blacklist samsnug custom tab browser
     private BrowserBlacklist blockListBrowser() {
+        VersionRange versionRange = VersionRange.atMost("4.0.20-56");//this or below
+        //VersionRange versionRange = VersionRange.ANY_VERSION;//block all the versions
         BrowserBlacklist blacklist = new BrowserBlacklist(
-                new VersionedBrowserMatcher(
-                        Browsers.SBrowser.PACKAGE_NAME,
-                        Browsers.SBrowser.SIGNATURE_SET,
-                        true, // custom tab
-                        VersionRange.ANY_VERSION));
+                new VersionedBrowserMatcher(Browsers.SBrowser.PACKAGE_NAME, Browsers.SBrowser.SIGNATURE_SET,true, // custom tab
+                        versionRange));
         return blacklist;
     }
 

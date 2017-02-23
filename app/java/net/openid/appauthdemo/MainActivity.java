@@ -16,6 +16,8 @@ package net.openid.appauthdemo;
 
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
@@ -68,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.open_id_iv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProgressDialog mProgressDialog = new ProgressDialog(MainActivity.this);
+                mProgressDialog.setCancelable(true);
+                mProgressDialog.show();
+            }
+        });
         mAuthService = new AuthorizationService(this);
         initAuthorizationService();
         List<IdentityProvider> IDPList = IdentityProvider.getEnabledProviders(this);
@@ -141,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         VersionRange versionRange = VersionRange.atMost("4.0.20-56");//this or below
         //VersionRange versionRange = VersionRange.ANY_VERSION;//block all the versions
         BrowserBlacklist blacklist = new BrowserBlacklist(
-                new VersionedBrowserMatcher(Browsers.SBrowser.PACKAGE_NAME, Browsers.SBrowser.SIGNATURE_SET,true, // custom tab
+                new VersionedBrowserMatcher(Browsers.SBrowser.PACKAGE_NAME, Browsers.SBrowser.SIGNATURE_SET, true, // custom tab
                         versionRange));
         return blacklist;
     }
@@ -152,6 +162,12 @@ public class MainActivity extends AppCompatActivity {
         if (mAuthService != null) {
             mAuthService.dispose();
         }
+    }
+
+    private PendingIntent createCancelPendingIntent() {
+        Intent intent = new Intent(this, CancelActivity.class);
+
+        return PendingIntent.getActivity(this, 420, intent, 0);
     }
 
     private void initAuthorizationService() {
@@ -179,7 +195,8 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent postAuthPendingIntent = TokenActivity.createPostAuthorizationIntent(this, authRequest, authServiceConfig.discoveryDoc, authState);
         CustomTabsIntent.Builder customTabsIntentBuilder = mAuthService.createCustomTabsIntentBuilder().setToolbarColor(getColorCompat(R.color.colorAccent));
         CustomTabsIntent customTabsIntent = customTabsIntentBuilder.build();
-        mAuthService.performAuthorizationRequest(authRequest, postAuthPendingIntent, customTabsIntent);
+        //TODO: user different overloaded method to pass Cancel pending intent as well
+        mAuthService.performAuthorizationRequest(authRequest, postAuthPendingIntent, createCancelPendingIntent(), customTabsIntent);
     }
 
     //The client id is not available. make registration request

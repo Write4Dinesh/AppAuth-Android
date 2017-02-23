@@ -24,6 +24,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
             <ImageView
+                android:id="@+id/open_id_iv"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
